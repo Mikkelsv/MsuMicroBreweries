@@ -16,8 +16,7 @@ namespace MicroBreweries
 
             using (var db = new DatabaseContext())
             {
-                //db.microBreweries.Add(new MicroBrewery() { Name = "myBrewery" });
-                //db.SaveChanges();
+                PopulateDatabase();
                 var query = from m in db.microBreweries
                             orderby m.Name
                             select m;
@@ -26,6 +25,31 @@ namespace MicroBreweries
                 {
                     Console.WriteLine($"{item.Name}");
                 }
+            }
+        }
+
+        private static void PopulateDatabase()
+        {
+            using (var db = new DatabaseContext())
+            {
+                List<MicroBrewery> initialBreweries = new List<MicroBrewery>()
+                {
+                    new MicroBrewery() { Name = "myBrewery" },
+                    new MicroBrewery() { Name = "Ringes" },
+                    new MicroBrewery() { Name = "Hamar Bryggeri" },
+                    new MicroBrewery() { Name = "Heineken" },
+                    new MicroBrewery() { Name = "Dahls" }
+                };
+
+                var databaseQuery = (from m in db.microBreweries
+                                    select m.Name).ToList();
+
+                initialBreweries.RemoveAll((x) => databaseQuery.Contains(x.Name));
+                foreach (MicroBrewery microBrewery in initialBreweries)
+                {
+                    db.microBreweries.Add(microBrewery);
+                }
+                db.SaveChanges();
             }
         }
     }
