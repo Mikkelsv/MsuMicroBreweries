@@ -16,6 +16,9 @@ namespace MicroBreweries
         public string Name { get; set; }
         public string Openinghours { get; set; }
 
+        public virtual ICollection<Beer> Beers { get; set; }
+        public MicroBrewery() { }
+
         public MicroBrewery(string Description, int ID, double Latitude, double Longitude, string Location, string Name, string Openinghours)
         {
             this.Description = Description;
