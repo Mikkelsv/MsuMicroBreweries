@@ -44,7 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beer.cs" />
-	<Compile Include="MicroBrewery.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="MicroBrewery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
