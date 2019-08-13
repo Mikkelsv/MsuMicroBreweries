@@ -29,5 +29,15 @@ namespace MicroBreweries
             this.Name = Name;
             this.Openinghours = Openinghours;
         }
+
+        public void UpdateBrewery(MicroBrewery newBrewery)
+        {
+            this.Name = newBrewery.Name;
+            this.Description = newBrewery.Description;
+            this.Latitude = newBrewery.Latitude;
+            this.Longitude = newBrewery.Longitude;
+            this.Location = newBrewery.Location;
+            this.Openinghours = newBrewery.Openinghours;
+        }
     }
 }

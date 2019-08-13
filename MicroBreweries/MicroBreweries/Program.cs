@@ -1,5 +1,6 @@
 ﻿using MicroBreweries.Migrations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -34,20 +35,30 @@ namespace MicroBreweries
             {
                 List<MicroBrewery> initialBreweries = new List<MicroBrewery>()
                 {
-                    new MicroBrewery() { Name = "myBrewery" },
+                    new MicroBrewery() { Name = "SS-Brewery", Description = "A naughty brewery", Latitude=59.9, Longitude = 10.7, Location="Oslo", Openinghours="07:00-23:30"},
                     new MicroBrewery() { Name = "Ringes" },
-                    new MicroBrewery() { Name = "Hamar Bryggeri" },
+                    new MicroBrewery() { Name = "Hamar Bryggeri", Location="Hamar" },
                     new MicroBrewery() { Name = "Heineken" },
                     new MicroBrewery() { Name = "Dahls" }
                 };
 
-                var databaseQuery = (from m in db.microBreweries
-                                    select m.Name).ToList();
+                var databaseBreweries = (from m in db.microBreweries
+                                         select m).ToList();
 
-                initialBreweries.RemoveAll((x) => databaseQuery.Contains(x.Name));
-                foreach (MicroBrewery microBrewery in initialBreweries)
+                foreach (MicroBrewery ib in initialBreweries)
                 {
-                    db.microBreweries.Add(microBrewery);
+                    bool exists = false;
+                    foreach (MicroBrewery m in databaseBreweries)
+                    {
+                        if (m.Name != ib.Name)
+                        {
+                            continue;
+                        }
+                        m.UpdateBrewery(ib);
+                        exists = true;
+                    }
+                    if (!exists)
+                        db.microBreweries.Add(ib);
                 }
                 db.SaveChanges();
             }
