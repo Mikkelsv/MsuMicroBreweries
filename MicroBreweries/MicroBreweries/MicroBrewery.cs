@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroBreweries
 {
-    class MicroBrewery
+    public class MicroBrewery
     {
         public string Description { get; set; }
         public int ID { get; set; }
