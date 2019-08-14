@@ -54,10 +54,10 @@ namespace MicroBreweries
             List<MicroBrewery> initialBreweries = new List<MicroBrewery>()
                 {
                     new MicroBrewery() { Name = "SS-Brewery", Description = "A naughty brewery", Latitude=59.9, Longitude = 10.7, Location="Oslo", Openinghours="07:00-23:30"},
-                    new MicroBrewery() { Name = "Ringes" },
-                    new MicroBrewery() { Name = "Hamar Bryggeri", Location="Hamar" },
-                    new MicroBrewery() { Name = "Heineken" },
-                    new MicroBrewery() { Name = "Dahls" }
+                    new MicroBrewery() { Name = "Ringes", Description = "One Ring to Rule them All", Latitude=59.5922, Longitude = 10.57, Location="Gjelleraasen", Openinghours="07:00-23:30"},
+                    new MicroBrewery() { Name = "Hamar Bryggeri", Description="Heia Nissen", Location="Hamar", Openinghours="07:00-23:30"},
+                    new MicroBrewery() { Name = "Heineken" , Description ="Best of the Dutches", Location = "Amsterdam", Openinghours="07:00-23:30"},
+                    new MicroBrewery() { Name = "Dahls" , Description = "Bra sus", Location="Trondheim", Openinghours="07:00-23:30"}
                 };
 
             UpdateDatabase(initialBreweries, db.microBreweries);

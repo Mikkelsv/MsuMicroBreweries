@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroBreweries
 {
-        class MicroBrewery : IUpdateable<MicroBrewery>
+    public class MicroBrewery
     {
         public string Description { get; set; }
         public int ID { get; set; }
@@ -30,15 +30,14 @@ namespace MicroBreweries
             this.Openinghours = Openinghours;
         }
 
-
-        public void Update(MicroBrewery newInstance)
+        public void UpdateBrewery(MicroBrewery newBrewery)
         {
-            this.Name = newInstance.Name;
-            this.Description = newInstance.Description;
-            this.Latitude = newInstance.Latitude;
-            this.Longitude = newInstance.Longitude;
-            this.Location = newInstance.Location;
-            this.Openinghours = newInstance.Openinghours;
+            this.Name = newBrewery.Name;
+            this.Description = newBrewery.Description;
+            this.Latitude = newBrewery.Latitude;
+            this.Longitude = newBrewery.Longitude;
+            this.Location = newBrewery.Location;
+            this.Openinghours = newBrewery.Openinghours;
         }
     }
 }

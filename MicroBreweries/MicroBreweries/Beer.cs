@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroBreweries
 {
-    class Beer
+    public class Beer
     {
         
         /// <summary>
