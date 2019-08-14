@@ -33,7 +33,25 @@ namespace MicroBreweries
         {
             using (var db = new DatabaseContext())
             {
-                List<MicroBrewery> initialBreweries = new List<MicroBrewery>()
+                PopulateDatabaseWithBreweries(db);
+                PopulateDatabaseWithUsers(db);
+                db.SaveChanges();
+            }
+        }
+
+        private static void PopulateDatabaseWithUsers(DatabaseContext db)
+        {
+            List<User> initialUsers = new List<User>()
+            {
+                new User() { Name = "Ronald", Password = "McDonald"}
+            };
+
+            UpdateDatabase(initialUsers, db.users);
+        }
+
+        private static void PopulateDatabaseWithBreweries(DatabaseContext db)
+        {
+            List<MicroBrewery> initialBreweries = new List<MicroBrewery>()
                 {
                     new MicroBrewery() { Name = "SS-Brewery", Description = "A naughty brewery", Latitude=59.9, Longitude = 10.7, Location="Oslo", Openinghours="07:00-23:30"},
                     new MicroBrewery() { Name = "Ringes" },
@@ -42,25 +60,28 @@ namespace MicroBreweries
                     new MicroBrewery() { Name = "Dahls" }
                 };
 
-                var databaseBreweries = (from m in db.microBreweries
-                                         select m).ToList();
+            UpdateDatabase(initialBreweries, db.microBreweries);
+        }
 
-                foreach (MicroBrewery ib in initialBreweries)
+
+        private static void UpdateDatabase<T>(List<T> initialList, IDbSet<T> table) where T : class, IUpdateable<T>
+        {
+            var databaseList = (from m in table
+                                select m).ToList();
+            foreach (T initialInstance in initialList)
+            {
+                bool exists = false;
+                foreach (T newInstance in databaseList)
                 {
-                    bool exists = false;
-                    foreach (MicroBrewery m in databaseBreweries)
+                    if (newInstance.Name != initialInstance.Name)
                     {
-                        if (m.Name != ib.Name)
-                        {
-                            continue;
-                        }
-                        m.UpdateBrewery(ib);
-                        exists = true;
+                        continue;
                     }
-                    if (!exists)
-                        db.microBreweries.Add(ib);
+                    newInstance.Update(initialInstance);
+                    exists = true;
                 }
-                db.SaveChanges();
+                if (!exists)
+                    table.Add(initialInstance);
             }
         }
     }

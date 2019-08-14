@@ -11,5 +11,7 @@ namespace MicroBreweries
     {
         public virtual IDbSet<MicroBrewery> microBreweries { get; set; }
         public virtual IDbSet<Beer> beers { get; set; }
+        public virtual IDbSet<User> users { get; set; }
+        public virtual IDbSet<Rating> rating { get; set; }
     }
 }
